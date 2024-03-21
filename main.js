@@ -21,40 +21,23 @@ init();
 
 function onBtnClick(e)
 {
-    let nomClass = e.currentTarget.className;
-    let array = nomClass.split("-");
-    if (array[array.length-1] == "left") slideIndex--;
+    let arr = e.currentTarget.className.split("-");
+    if (arr[arr.length-1] == "left") slideIndex--;
     else slideIndex++;
     
-    if(slideIndex < 0)
-    {
-        slideIndex = 2;
-    }
-    if(slideIndex > 2)
-    {
-        slideIndex = 0;
-    }
-    console.log(slideIndex);
+    if(slideIndex < 0) slideIndex = 0;
+    
+    if(slideIndex > slidesData.length-1) slideIndex = slidesData.length-1;
 
     updateslidesData(slideIndex);
 }
 
 function onDotClick(e)
 {
-    
     let classes = e.currentTarget.className.split(" ");
     let first = classes[0];
     slideIndex = first[first.length-1];
-
-    if(slideIndex < 0)
-    {
-        slideIndex = 2;
-    }
-    if(slideIndex > 2)
-    {
-        slideIndex = 0;
-    }
-
+    
     updateslidesData(slideIndex);
 }
 
@@ -66,7 +49,6 @@ function updateslidesData(slideIndex)
         {
             imagesCarousel[i].style.opacity = 1;
             dots[i].style.opacity = 1;
-
         }
         else
         {
@@ -74,23 +56,12 @@ function updateslidesData(slideIndex)
             dots[i].style.opacity = 0.5;
         }
     }
+    btns[0].style.opacity = slideIndex == 0 ? 0.5 : 1;
+    btns[1].style.opacity = slideIndex == slidesData.length-1 ? 0.5 : 1;
 }
 
 function init()
 {
     slideIndex  = 0;
-    for(let i = 0; i < imagesCarousel.length; i++)
-    {
-        if(i == slideIndex)
-        {
-            imagesCarousel[i].style.opacity = 1;
-            dots[i].style.opacity = 1;
-    
-        }
-        else
-        {
-            imagesCarousel[i].style.opacity = 0;
-            dots[i].style.opacity = 0.5;
-        }
-    }
+    updateslidesData(slideIndex);
 }
