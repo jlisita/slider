@@ -4,9 +4,13 @@ const slidesData = [
     { title: "CHAMPS", description: "Sed do eiusmod tempor incididunt" },
 ];
 
-const btns = document.querySelectorAll(".slider-btn");
+const btnLeft = document.querySelector(".slider-btn-left");
+const btnRight = document.querySelector(".slider-btn-right");
+const btns = [btnLeft,btnRight];
 const dots = document.querySelectorAll(".dot");
 const imagesCarousel = document.querySelectorAll(".slider-img");
+const sliderTitle = document.querySelector(".slider-title");
+const sliderLegend = document.querySelector(".slider-legend");
 
 btns.forEach( btn => {
     btn.addEventListener("click", onBtnClick);
@@ -16,7 +20,7 @@ dots.forEach( dot => {
     dot.addEventListener("click", onDotClick);
 });
 
-let slideIndex; 
+let slideIndex; // contient l'indice de l'image à afficher
 init();
 
 function onBtnClick(e)
@@ -43,6 +47,7 @@ function onDotClick(e)
 
 function updateslidesData(slideIndex)
 {
+    // mise à jour de l'opacité des puces 
     for(let i = 0; i < imagesCarousel.length; i++)
     {
         if(i == slideIndex)
@@ -56,8 +61,15 @@ function updateslidesData(slideIndex)
             dots[i].style.opacity = 0.5;
         }
     }
-    btns[0].style.opacity = slideIndex == 0 ? 0.5 : 1;
-    btns[1].style.opacity = slideIndex == slidesData.length-1 ? 0.5 : 1;
+
+    // mise à jour de l'opacité des bouton gauche et droit
+    btnLeft.style.opacity = slideIndex == 0 ? 0.5 : 1;
+    btnRight.style.opacity = slideIndex == slidesData.length-1 ? 0.5 : 1;
+
+    // mise à jour du titre et du commentaire du slide
+    sliderTitle.textContent = slidesData[slideIndex].title;
+    sliderLegend.textContent = slidesData[slideIndex].description;
+
 }
 
 function init()
