@@ -52,12 +52,10 @@ function updateslidesData(slideIndex)
     {
         if(i == slideIndex)
         {
-            imagesCarousel[i].style.opacity = 1;
             dots[i].style.opacity = 1;
         }
         else
         {
-            imagesCarousel[i].style.opacity = 0;
             dots[i].style.opacity = 0.5;
         }
     }
@@ -70,7 +68,14 @@ function updateslidesData(slideIndex)
     sliderTitle.textContent = slidesData[slideIndex].title;
     sliderLegend.textContent = slidesData[slideIndex].description;
 
+    for(let i = 0; i < imagesCarousel.length; i++)
+    {
+        imagesCarousel[i].style.transition = 'transform 3s';
+        imagesCarousel[i].style.transform = `translateX(${(i - slideIndex) * 100}%)`
+    }
+
 }
+
 
 function init()
 {
